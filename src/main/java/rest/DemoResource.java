@@ -30,7 +30,7 @@ import utils.*;
 @Path("info")
 public class DemoResource {
     
-    //private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final ExecutorService ES = Executors.newCachedThreadPool();
     //private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -48,20 +48,20 @@ public class DemoResource {
     }
 
     //Just to verify if the database is setup
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("all")
-//    public String allUsers() {
-//
-//        EntityManager em = EMF.createEntityManager();
-//        try {
-//            TypedQuery<User> query = em.createQuery ("select u from User u",User.class);
-//            List<User> users = query.getResultList();
-//            return "[" + users.size() + "]";
-//        } finally {
-//            em.close();
-//        }
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("all")
+    public String allUsers() {
+
+        EntityManager em = EMF.createEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery ("select u from User u",User.class);
+            List<User> users = query.getResultList();
+            return "[" + users.size() + "]";
+        } finally {
+            em.close();
+        }
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
