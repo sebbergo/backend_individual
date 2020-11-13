@@ -17,10 +17,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
-import utils.EMF_Creator;
+import utils.*;
+
 
 /**
  * @author lam@cphbusiness.dk
@@ -93,5 +95,13 @@ public class DemoResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getStarWarsCached() throws InterruptedException, ExecutionException, TimeoutException {
         return cachedResponse;
+    }
+    
+    @Path("setupusers")
+    @POST
+    @Produces ({MediaType.APPLICATION_JSON})
+    public void setupTestUsers() {
+        SetupTestUsers setup = new SetupTestUsers();
+        setup.setupTestUsers();
     }
 }
