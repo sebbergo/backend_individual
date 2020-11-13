@@ -38,7 +38,7 @@ public class FacadeExample {
     
     //TODO Remove/Change this before use
     public long getRenameMeCount(){
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = getEntityManager();
         try{
             long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM RenameMe r").getSingleResult();
             return renameMeCount;
