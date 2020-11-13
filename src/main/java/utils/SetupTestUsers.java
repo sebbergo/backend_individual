@@ -9,7 +9,7 @@ import javax.persistence.EntityManagerFactory;
 
 public class SetupTestUsers {
 
-  public void setupTestUsers() {
+  public void setupUsers() {
 
     EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     EntityManager em = emf.createEntityManager();

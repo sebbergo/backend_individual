@@ -97,11 +97,11 @@ public class DemoResource {
         return cachedResponse;
     }
     
-    @Path("setupusers")
+    @Path("setup")
     @GET
     @Produces ({MediaType.APPLICATION_JSON})
     public void setupTestUsers() {
         SetupTestUsers setup = new SetupTestUsers();
-        setup.setupTestUsers();
+        setup.setupUsers();
     }
 }
