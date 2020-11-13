@@ -98,7 +98,7 @@ public class DemoResource {
     }
     
     @Path("setupusers")
-    @POST
+    @GET
     @Produces ({MediaType.APPLICATION_JSON})
     public void setupTestUsers() {
         SetupTestUsers setup = new SetupTestUsers();
