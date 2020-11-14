@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Joke;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,6 +42,20 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+    
+    public void storeJoke(String joke){
+        EntityManager em = emf.createEntityManager();
+        try{
+            Joke jokeToStore = new Joke(joke);
+            
+            em.getTransaction().begin();
+            em.persist(jokeToStore);
+            em.getTransaction().commit();
+            
+        } finally {
+            em.close();
+        }
     }
 
 }

@@ -100,7 +100,7 @@ public class RenameMeResourceTest {
     public void testParrallel() throws Exception {
         given()
                 .contentType("application/json")
-                .get("/info/parrallel").then()
+                .get("/info/sw").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("peopleName", equalTo("Luke Skywalker"))

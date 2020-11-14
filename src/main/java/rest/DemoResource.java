@@ -2,8 +2,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.JokeDTO;
+import entities.Joke;
 import entities.User;
 import facades.FacadeExample;
+import facades.UserFacade;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -32,7 +35,7 @@ public class DemoResource {
     
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final ExecutorService ES = Executors.newCachedThreadPool();
-    //private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
+    private static final UserFacade FACADE = UserFacade.getUserFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static String cachedResponse;
     @Context
@@ -81,11 +84,20 @@ public class DemoResource {
         return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
     }
     
-    @Path("parrallel")
+    @Path("sw")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getStarWarsParrallel() throws InterruptedException, ExecutionException, TimeoutException {
         String result = fetcher.StarWarsFetcher.responseFromExternalServersParrallel(ES, GSON);
+        cachedResponse = result;
+        return result;
+    }
+    
+    @Path("joke")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getNewParrallel() throws InterruptedException, ExecutionException, TimeoutException {
+        String result = fetcher.JokeFetcher.responseFromExternalServersParrallel(ES, GSON);
         cachedResponse = result;
         return result;
     }
@@ -103,5 +115,15 @@ public class DemoResource {
     public void setupTestUsers() {
         SetupTestUsers setup = new SetupTestUsers();
         setup.setupUsers();
+    }
+    
+    @Path("storeJoke")
+    @POST
+    @Produces ({MediaType.APPLICATION_JSON})
+    public String storeJoke() {
+        JokeDTO jokeDTO = GSON.fromJson(cachedResponse, JokeDTO.class);
+        FACADE.storeJoke(jokeDTO.getJoke());
+        
+        return GSON.toJson(jokeDTO);
     }
 }
