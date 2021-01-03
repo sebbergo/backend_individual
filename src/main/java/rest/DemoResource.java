@@ -7,6 +7,7 @@ import entities.Joke;
 import entities.User;
 import facades.FacadeExample;
 import facades.UserFacade;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import utils.*;
@@ -92,6 +94,25 @@ public class DemoResource {
         cachedResponse = result;
         return result;
     }
+    
+    @Path("planets")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getPlanets() throws InterruptedException, ExecutionException, TimeoutException, IOException {
+        String result = fetcher.StarWarsPlanetFetcher.responseFromExternalServersSequential(ES, GSON);
+        cachedResponse = result;
+        return result;
+    }
+    
+    /*
+    @Path("planet/{planet}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getPersonsByHobby(@PathParam("planet") String planet) throws InterruptedException, ExecutionException, TimeoutException {
+        return CountryCoronaInfoFethcer.responseFromExternalServersParrallel(ES, GSON, country);
+
+    }
+*/
     
     @Path("joke")
     @GET
