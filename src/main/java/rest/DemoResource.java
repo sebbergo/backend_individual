@@ -104,15 +104,14 @@ public class DemoResource {
         return result;
     }
     
-    /*
-    @Path("planet/{planet}")
+    @Path("countries")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonsByHobby(@PathParam("planet") String planet) throws InterruptedException, ExecutionException, TimeoutException {
-        return CountryCoronaInfoFethcer.responseFromExternalServersParrallel(ES, GSON, country);
-
+    public String getCountries() throws InterruptedException, ExecutionException, TimeoutException, IOException {
+        String result = fetcher.CountriesFetcher.responseFromExternalServersSequential(ES, GSON);
+        cachedResponse = result;
+        return result;
     }
-*/
     
     @Path("joke")
     @GET
