@@ -94,7 +94,7 @@ public class RenameMeResourceTest {
                 .body("msg", equalTo("Hello anonymous"));
     }
 
-    
+    @Disabled
     @Test
     @Order(1)
     public void testParrallel() throws Exception {
@@ -111,6 +111,8 @@ public class RenameMeResourceTest {
 
  
     }
+    
+    @Disabled
     @Test
     @Order(2)
     public void testCached() throws Exception {
